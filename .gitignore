@@ -24,3 +24,6 @@ hs_err_pid*
 system-integration/reports/
 # Builds
 target
+#Editor intellij
+.idea
+*.iml
