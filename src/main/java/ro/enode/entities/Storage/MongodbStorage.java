@@ -82,7 +82,7 @@ public class MongodbStorage implements StorageInterface {
         if (basicDBObject != null) {
             basicDBObject.remove("_id");
             Map map = transformer.toMap(basicDBObject);
-            map.put("id", id)
+            map.put("id", id);
             return map;
         }
         return null;
