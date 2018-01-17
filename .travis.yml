@@ -37,4 +37,5 @@ before_install:
 
 script:
   - mvn test -B
+  - ./dev.sh run
   - ./dev.sh system-integration

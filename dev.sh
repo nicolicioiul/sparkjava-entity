@@ -18,7 +18,6 @@ if [ $# -gt 0 ];then
         echo "Clean";
     elif [ "$1" == "build" ]; then
         $EXEC_MVN package
-
     elif [ "$1" == "system-integration" ]; then
         cd system-integration
         ./ht/ht_linux exec -output ./reports/ -Dfile ./env/local.json ./entity/...
