@@ -9,8 +9,8 @@
 
     Main: [
         {File: "post.ht"}
-        //{File: "get.ht"}
-        // {File: "put.ht"}
+        {File: "get.ht"}
+        {File: "put.ht"}
         {File: "delete.ht"}
         {File: "get.deleted.ht"}
     ]
