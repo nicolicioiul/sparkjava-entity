@@ -42,21 +42,21 @@ public class Bootstrap {
         // Not found.
         exception(NotFoundException.class, (NotFoundException e, Request req, Response res) -> {
             res.status(e.getStatusCode());
-            res.body("{message:" + "\"" +e.getMessage() + "\"}");
+            res.body("{\"message\":" + "\"" +e.getMessage() + "\"}");
             log.info("Exception not found for: " +req.requestMethod()+ " path: "+req.uri()+ " message: "+ e.getMessage());
         });
 
         // Access denied.
         exception(AccessDeniedException.class, (AccessDeniedException e, Request req, Response res) -> {
             res.status(e.getStatusCode());
-            res.body("{message:" + "\"" +e.getMessage() + "\"}");
+            res.body("{\"message\":" + "\"" +e.getMessage() + "\"}");
             log.info("Exception forbidden: " +req.requestMethod()+ " path: "+req.uri()+ " message: "+ e.getMessage());
         });
 
         // Internal server error.
         exception(Exception.class, (Exception e, Request req, Response res) -> {
             res.status(500);
-            res.body("{message:" + "\"" +e.getMessage() + "\"}");
+            res.body("{\"message\":" + "\"" +e.getMessage() + "\"}");
             log.info("Internal server error: " +req.requestMethod()+ " path: "+req.uri()+ " message: "+ e.getMessage());
         });
 
