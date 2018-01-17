@@ -1,0 +1,24 @@
+{
+    Name: "Entity tests",
+    Description: "Query entity base operations: create/get/put/delete/get",
+    KeepCookies: true,
+
+//    Setup: [
+//        {File: "../common/admin_get_token.ht"}
+//    ]
+
+    Main: [
+        {File: "post.ht"}
+        //{File: "get.ht"}
+        // {File: "put.ht"}
+        {File: "delete.ht"}
+        {File: "get.deleted.ht"}
+    ]
+
+    Teardown: [
+        //{File: "delete.ht"}
+    ]
+
+    Variables: {
+    }
+}
