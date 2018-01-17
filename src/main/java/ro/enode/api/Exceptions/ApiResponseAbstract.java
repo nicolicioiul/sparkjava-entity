@@ -4,9 +4,9 @@ public class ApiResponseAbstract extends Exception {
     /**
      * Default status code, internal error.
      */
-    protected int statusCode = 500;
+    int statusCode = 500;
 
-    public ApiResponseAbstract(String message) {
+    ApiResponseAbstract(String message) {
         super(message);
     }
 
@@ -15,7 +15,7 @@ public class ApiResponseAbstract extends Exception {
      *
      * @return int
      */
-    public int getStatusCode(){
+    public int getStatusCode() {
         return statusCode;
     }
 }

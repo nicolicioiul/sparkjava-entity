@@ -31,10 +31,11 @@ abstract public class Resource {
 
     /**
      * Get transformer.
+     *
      * @return
      */
-    public static JsonTransformer getTransformer(){
-        return (JsonTransformer)transformer;
+    public static JsonTransformer getTransformer() {
+        return (JsonTransformer) transformer;
     }
 
 }

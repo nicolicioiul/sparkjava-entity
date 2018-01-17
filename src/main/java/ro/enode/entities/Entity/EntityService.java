@@ -22,36 +22,40 @@ public class EntityService extends Service {
      * EntityModel
      */
     private EntityModel entity;
+
     /**
      * Constructor
-     * @param storage StorageInterface
+     *
+     * @param storage     StorageInterface
      * @param transformer Transformer
      */
-    public EntityService(StorageInterface storage, Transformer transformer){
+    public EntityService(StorageInterface storage, Transformer transformer) {
         this.storage = storage;
         this.transformer = transformer;
     }
 
     /**
      * Create an entity.
+     *
      * @param type String
      * @param body String
      * @return Map
      */
-    public Map create(String type, String body){
+    public Map create(String type, String body) {
         entity = toEntity(type, body);
         return storage.save(entity);
     }
 
     /**
      * Update entity
+     *
      * @param type String
-     * @param id String
+     * @param id   String
      * @param body String
      * @return Map
      */
     public Map update(String type, String id, String body) throws NotFoundException {
-        if(!exists(id, type)) {
+        if (exists(id, type)) {
             throw new NotFoundException();
         }
         EntityModel entity = toEntity(type, body);
@@ -61,11 +65,12 @@ public class EntityService extends Service {
 
     /**
      * Delete entity.
+     *
      * @return boolean
      * @throws NotFoundException
      */
-    public boolean delete( String type, String id) throws NotFoundException{
-        if(!exists(id, type)) {
+    public boolean delete(String type, String id) throws NotFoundException {
+        if (exists(id, type)) {
             throw new NotFoundException();
         }
         return storage.delete(id, type);
@@ -73,11 +78,12 @@ public class EntityService extends Service {
 
     /**
      * Convert string to Map
+     *
      * @param type String
      * @param body String
      * @return
      */
-    public EntityModel toEntity(String type, String body){
+    private EntityModel toEntity(String type, String body) {
         Map map = transformer.toMap(body);
         map.put("type", type);
         EntityModel entityModel = new EntityModel(map);
@@ -86,10 +92,11 @@ public class EntityService extends Service {
 
     /**
      * Convert string to Map
+     *
      * @param body String
      * @return
      */
-    public EntityModel toEntity(String body){
+    public EntityModel toEntity(String body) {
         Map map = transformer.toMap(body);
         EntityModel entityModel = new EntityModel(map);
         return entityModel;
@@ -98,7 +105,7 @@ public class EntityService extends Service {
     /**
      * Find by id.
      *
-     * @param id string
+     * @param id   string
      * @param type
      * @return Map
      */
@@ -109,18 +116,20 @@ public class EntityService extends Service {
     /**
      * Get on item by id.
      *
-     * @param id string
+     * @param id   string
      * @param type
      * @return Map
      */
-    public Map get(String id, String type) throws NotFoundException{
-        if(!exists(id, type)) {
+    public Map get(String id, String type) throws NotFoundException {
+        if (exists(id, type)) {
             throw new NotFoundException();
         }
         return storage.findById(id, type);
     }
+
     /**
      * Find all.
+     *
      * @return List<Map>
      */
     public List<Map> findAll(String type) {
@@ -129,15 +138,13 @@ public class EntityService extends Service {
 
     /**
      * Check if model exists.
-     * @param id String
+     *
+     * @param id   String
      * @param type String
      * @return
      */
-    private boolean exists(String id, String type){
+    private boolean exists(String id, String type) {
         Map map = this.findById(id, type);
-        if(map != null) {
-           return  true;
-        }
-        return false;
+        return map != null;
     }
 }

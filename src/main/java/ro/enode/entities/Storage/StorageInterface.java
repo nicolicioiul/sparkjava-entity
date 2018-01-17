@@ -6,8 +6,11 @@ import java.util.Map;
 import java.util.List;
 
 public interface StorageInterface {
-    public Map save(EntityModel entity);
-    public boolean delete(String id, String type);
-    public Map findById(String id, String type);
-    public List<Map> findAll(String type);
+    Map save(EntityModel entity);
+
+    boolean delete(String id, String type);
+
+    Map findById(String id, String type);
+
+    List<Map> findAll(String type);
 }

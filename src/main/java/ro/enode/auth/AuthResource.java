@@ -14,9 +14,10 @@ public class AuthResource extends Resource {
 
     /**
      * Constructor
-     * @param authService
+     *
+     * @param authService AuthService
      */
-    public AuthResource(AuthService authService){
+    public AuthResource(AuthService authService) {
         this.authService = authService;
         setupEndPoints();
     }
@@ -24,23 +25,23 @@ public class AuthResource extends Resource {
     /**
      * Implement Resource endpoints, add routes
      */
-    private void setupEndPoints(){
+    private void setupEndPoints() {
         // Before any request, ask for auth.
         before("/*", (req, res) -> {
             // Open session.
             req.session();
             // If it not requested the auth path.
-            if(! (API_CONTEXT_BASE + API_CONTEXT_VERSION + "/auth").equals(req.uri())){
-                if(req.session().attribute("uid") == null){
+            if (!(API_CONTEXT_BASE + API_CONTEXT_VERSION + "/auth").equals(req.uri())) {
+                if (req.session().attribute("uid") == null) {
                     throw new AccessDeniedException("Missing auth identifier");
                 }
             }
         });
         // Login auth path.
         path(API_CONTEXT_BASE, () -> {
-            path(API_CONTEXT_VERSION, ()->{
+            path(API_CONTEXT_VERSION, () -> {
                 Spark.post("/auth", API_CONTENT_ACCEPT, (req, res) -> {
-                            if(authService.create(req.body())){
+                            if (authService.create(req.body())) {
                                 req.session(true);
                                 req.session().attribute("uid", 1);
                                 return "Auth succesfull";

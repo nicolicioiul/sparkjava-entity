@@ -7,18 +7,14 @@ import java.util.Map;
 public class AuthService extends Service {
     /**
      * Create auth
-     * @param body
+     *
+     * @param body String
      * @return bool
      */
-    public boolean create(String body){
+    public boolean create(String body) {
         log.info("Auth request:" + body);
         Map map = transformer.toMap(body);
-        if(map.get("username").equals("jondoe")){
-            if(map.get("password").equals("password")){
-                return true;
-            }
-        }
-        return false;
+        return map.get("username").equals("jondoe") && map.get("password").equals("password");
     }
 
 }
