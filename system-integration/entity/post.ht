@@ -1,0 +1,30 @@
+{
+    Name: "Create entity",
+    Description: "",
+
+    Request: {
+        Method: POST
+        URL:    "{{PROTOCOL}}://{{MOBILEHOST}}{{APIPATH}}/{{ENTITY_APIPATH}}/test"
+        Header: {
+            Accept:       "*/*"
+            Content-Type: "application/json"
+        },
+        Body: "@vfile:{{TEST_DIR}}/post_entity.json"
+        Timeout: 10s
+    },
+
+    Execution: {
+        PreSleep:  0ms
+        PostSleep: 0ms
+    }
+
+    DataExtraction: {
+        ENTITY_ID: {Extractor: "JSONExtractor", Element: "id"},
+    },
+
+    Checks: [
+        {Check: "StatusCode", Expect: 200}
+        {Check: "ContentType", Is: "application/json"}
+
+    ]
+}

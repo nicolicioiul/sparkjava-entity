@@ -1,0 +1,26 @@
+{
+    Name: "Get entity",
+    Description: "",
+
+    Request: {
+        Method: GET
+        URL:    "{{PROTOCOL}}://{{MOBILEHOST}}{{APIPATH}}/{{ENTITY_APIPATH}}/test/{{ENTITY_ID}}"
+        Header: {
+            Accept:       "*/*"
+            Content-Type: "application/json"
+        },
+        Timeout: 10s
+    },
+
+    Execution: {
+        PreSleep:  0ms
+        PostSleep: 0ms
+    }
+
+
+    Checks: [
+        {Check: "StatusCode", Expect: 200}
+        {Check: "ContentType", Is: "application/json"}
+
+    ]
+}

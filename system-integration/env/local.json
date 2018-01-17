@@ -1,0 +1,6 @@
+{
+  "PROTOCOL": "http",
+  "MOBILEHOST": "localhost:8080",
+  "APIPATH": "/api/v1",
+  "ENTITY_APIPATH": "entity"
+}
