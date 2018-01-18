@@ -33,9 +33,12 @@ before_install:
 
   # Setup your application stack. You may need to tweak these commands if you
   # doing out-of-the-ordinary docker-compose builds.
-  - docker-compose up -d
+  #- docker-compose up -d
 
 script:
   - mvn test -B
-  - ./dev.sh run
+  #- ./dev.sh run
+  - mvn package
+  - docker-compose up -d
+  - java -jar target/entityAPI-1.0-SNAPSHOT.jar
   - ./dev.sh system-integration
