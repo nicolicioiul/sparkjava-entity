@@ -31,15 +31,6 @@ before_install:
   # before doing the update.
   - docker-compose --version
 
-  # Setup your application stack. You may need to tweak these commands if you
-  # doing out-of-the-ordinary docker-compose builds.
-  #- docker-compose up -d
-
-
 script:
   - mvn test -B
-  #- ./dev.sh run
-  - mvn package
-  - docker-compose up -d
-  - ./dev.sh run
   - ./dev.sh system-integration

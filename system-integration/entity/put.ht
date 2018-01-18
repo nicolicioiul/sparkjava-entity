@@ -21,6 +21,6 @@
     Checks: [
         {Check: "StatusCode", Expect: 200}
         {Check: "ContentType", Is: "application/json"}
-        {Check: "JSON", Element: "field3", Equals: "updated value field3"}
+        {Check: "JSON", Element: "field3", Contains: "updated value field3"}
     ]
 }

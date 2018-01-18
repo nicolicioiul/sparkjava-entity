@@ -9,6 +9,8 @@ import com.mongodb.*;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import java.io.StringWriter;
+import java.io.PrintWriter;
 
 public class Loader {
     /**
@@ -24,7 +26,10 @@ public class Loader {
             StorageInterface storage = new MongodbStorage(mongo(), Resource.getTransformer());
             new EntityResource(new EntityService(storage, Resource.getTransformer()));
         } catch (Exception e) {
-            logger.error(e.getMessage());
+            StringWriter sw = new StringWriter();
+            e.printStackTrace(new PrintWriter(sw));
+            String exceptionAsString = sw.toString();
+            logger.error("Error on load entity service:" + e.getMessage() + " e:"+ e.getClass() + " debug:"+exceptionAsString);
         }
     }
 
@@ -36,25 +41,27 @@ public class Loader {
      * @throws RuntimeException
      */
     private static DB mongo() throws Exception {
-        String host = System.getenv("OPENSHIFT_MONGODB_DB_HOST");
-        if (host == null) {
-            MongoClient mongoClient = new MongoClient("localhost");
-            return mongoClient.getDB("entitiesapp");
-        }
-        int port = System.getenv("OPENSHIFT_MONGODB_DB_PORT") != null
-                ? Integer.parseInt(System.getenv("OPENSHIFT_MONGODB_DB_PORT")) : 27017;
+        try {
+            String host = System.getenv("MONGODB_DB_HOST") != null
+                   ? System.getenv("MONGODB_DB_HOST") : "localhost";
+            int port = System.getenv("MONGODB_DB_PORT") != null
+                    ? Integer.parseInt(System.getenv("MONGODB_DB_PORT")) : 27017;
 
-        String dbname = System.getenv("OPENSHIFT_APP_NAME");
-        String username = System.getenv("OPENSHIFT_MONGODB_DB_USERNAME");
-        String password = System.getenv("OPENSHIFT_MONGODB_DB_PASSWORD");
-        MongoClientOptions mongoClientOptions = MongoClientOptions.builder().build();
-        MongoClient mongoClient = new MongoClient(new ServerAddress(host, port), mongoClientOptions);
-        mongoClient.setWriteConcern(WriteConcern.SAFE);
-        DB db = mongoClient.getDB(dbname);
-        if (db.authenticate(username, password.toCharArray())) {
+            String dbname = System.getenv("MONGODB_DB_NAME");
+            MongoClientOptions mongoClientOptions = MongoClientOptions.builder().build();
+            MongoClient mongoClient = new MongoClient(new ServerAddress(host, port), mongoClientOptions);
+            mongoClient.setWriteConcern(WriteConcern.SAFE);
+            // Auth if is required.
+            String username = System.getenv("MONGODB_DB_USERNAME");
+            String password = System.getenv("MONGODB_DB_PASSWORD");
+
+            DB db = mongoClient.getDB(dbname);
+            if (username != null) {
+                db.authenticate(username, password.toCharArray());
+            }
             return db;
-        } else {
-            throw new RuntimeException("Not able to authenticate with MongoDB");
+        }catch (Exception e){
+            throw new RuntimeException("Not able to authenticate with MongoDB:" + e.getMessage());
         }
     }
 

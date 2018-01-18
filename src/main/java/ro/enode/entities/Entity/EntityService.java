@@ -55,7 +55,7 @@ public class EntityService extends Service {
      * @return Map
      */
     public Map update(String type, String id, String body) throws NotFoundException {
-        if (exists(id, type)) {
+        if (!exists(id, type)) {
             throw new NotFoundException();
         }
         EntityModel entity = toEntity(type, body);
@@ -70,7 +70,7 @@ public class EntityService extends Service {
      * @throws NotFoundException
      */
     public boolean delete(String type, String id) throws NotFoundException {
-        if (exists(id, type)) {
+        if (!exists(id, type)) {
             throw new NotFoundException();
         }
         return storage.delete(id, type);
@@ -86,18 +86,6 @@ public class EntityService extends Service {
     private EntityModel toEntity(String type, String body) {
         Map map = transformer.toMap(body);
         map.put("type", type);
-        EntityModel entityModel = new EntityModel(map);
-        return entityModel;
-    }
-
-    /**
-     * Convert string to Map
-     *
-     * @param body String
-     * @return
-     */
-    public EntityModel toEntity(String body) {
-        Map map = transformer.toMap(body);
         EntityModel entityModel = new EntityModel(map);
         return entityModel;
     }
@@ -121,7 +109,7 @@ public class EntityService extends Service {
      * @return Map
      */
     public Map get(String id, String type) throws NotFoundException {
-        if (exists(id, type)) {
+        if (!exists(id, type)) {
             throw new NotFoundException();
         }
         return storage.findById(id, type);

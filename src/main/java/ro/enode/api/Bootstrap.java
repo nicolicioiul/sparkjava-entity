@@ -26,8 +26,8 @@ public class Bootstrap {
 
     public static void main(String[] args) {
         // Get server setup.
-        IP_ADDRESS = System.getenv("OPENSHIFT_DIY_IP") != null ? System.getenv("OPENSHIFT_DIY_IP") : "localhost";
-        PORT = System.getenv("OPENSHIFT_DIY_PORT") != null ? Integer.parseInt(System.getenv("OPENSHIFT_DIY_PORT")) : 8080;
+        IP_ADDRESS = System.getenv("IP_ADDRESS") != null ? System.getenv("IP_ADDRESS") : "0.0.0.0";
+        PORT = System.getenv("PORT") != null ? Integer.parseInt(System.getenv("PORT")) : 8080;
         // Setup the server env.
         ipAddress(IP_ADDRESS);
         port(PORT);
