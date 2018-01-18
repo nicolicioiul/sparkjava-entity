@@ -41,5 +41,5 @@ script:
   #- ./dev.sh run
   - mvn package
   - docker-compose up -d
-  - java -jar target/entityAPI-1.0-SNAPSHOT.jar
+  - ./dev.sh run
   - ./dev.sh system-integration
