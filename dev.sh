@@ -24,8 +24,9 @@ if [ $# -gt 0 ];then
     elif [ "$1" == "run" ]; then
         ./dev.sh build
         ./dev.sh start
-        java -jar target/entityAPI-1.0-SNAPSHOT.jar &
+        java -jar target/entityAPI-1.0-SNAPSHOT.jar >/var/log/api-entity.log 2>&1
         echo "Started on $PROJECT_HOSTNAME"
+        cat api-entity.log
     else
         $COMPOSE "$@"
     fi
