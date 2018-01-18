@@ -1,5 +1,6 @@
 # sparkjava-entity
-https://travis-ci.org/nicolicioiul/sparkjava-entity.svg?branch=master
+
+<img src="https://travis-ci.org/nicolicioiul/sparkjava-entity.svg?branch=master" />
 
 Play with javaspark REST API
 
