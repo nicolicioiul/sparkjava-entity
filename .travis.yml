@@ -35,6 +35,7 @@ before_install:
   # doing out-of-the-ordinary docker-compose builds.
   #- docker-compose up -d
 
+
 script:
   - mvn test -B
   #- ./dev.sh run

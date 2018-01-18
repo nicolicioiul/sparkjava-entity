@@ -23,7 +23,7 @@ hs_err_pid*
 # Test reports.
 system-integration/reports/
 # Builds
-target
+target/
 #Editor intellij
-.idea
+.idea/
 *.iml
